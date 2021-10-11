@@ -1,0 +1,11 @@
+div.bar {
+  // border-right: 1px solid black;
+  min-width: 200px;
+  display: flex;
+
+  .vertical-line {
+    height: 40px;
+    margin-top: 8px;
+    border-right: 1px solid black;
+  }
+}
