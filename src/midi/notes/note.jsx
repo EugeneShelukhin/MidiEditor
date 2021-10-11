@@ -6,20 +6,20 @@ import SixTeenthNote from "./NoteTypes/SixteenthNote";
 
 function Note(props) {
   let { duration } = props;
-
-  if (duration == 1) {
+  duration = parseInt(duration);
+  if (duration === 1) {
     return <WholeNote />;
   }
-  if (duration == 2) {
+  if (duration === 2) {
     return <HalfNote />;
   }
-  if (duration == 4) {
+  if (duration === 4) {
     return <QuarterNote />;
   }
-  if (duration == 8) {
+  if (duration === 8) {
     return <EighthNote />;
   }
-  if (duration == 16) {
+  if (duration === 16) {
     return <SixTeenthNote />;
   }
 

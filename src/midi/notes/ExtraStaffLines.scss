@@ -1,0 +1,11 @@
+.extra-staff-lines {
+  position: absolute;
+  top: 0px;
+
+  & > div {
+    margin: 1px 0px;
+    width: 13px;
+    height: 8px;
+    border-top: 1px solid black;
+  }
+}
