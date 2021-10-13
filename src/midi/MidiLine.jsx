@@ -7,7 +7,7 @@ function MidiLine(props) {
     <div className="midi-line">
       <Staff />
       <div className="items">
-        <Bars />
+        <Bars data={props.data} />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ function Bar(props) {
       <Clef type={props.clef} />
       <TimeSignature beatCount="2" beatLength="4" />
       <SharpFlatPanel />
-      <NotesContainer />
+      <NotesContainer data={props.data} />
     </div>
   );
 }
