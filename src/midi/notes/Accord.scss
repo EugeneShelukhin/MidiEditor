@@ -1,5 +1,8 @@
-.note-base {
+.accord {
   margin: 0 10px;
   font-size: 30px;
   line-height: 29px;
+  & > div {
+    position: absolute;
+  }
 }

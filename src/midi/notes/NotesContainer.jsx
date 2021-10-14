@@ -1,12 +1,12 @@
 import "./NotesContainer.scss";
-import NoteBase from "./NoteBase";
+import Accord from "./Accord";
 
 function NotesContainer(props) {
   return (
     <div className="notes-container">
       {props.data &&
         props.data.map((n) => (
-          <NoteBase duration={n.duration} octava={n.octava} tone={n.tone} />
+          <Accord duration={n.duration} accord={n.accord} />
         ))}
     </div>
   );
