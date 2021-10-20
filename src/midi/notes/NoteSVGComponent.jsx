@@ -1,16 +1,25 @@
 import React from "react";
 import SvgLine from "./SvgHelpers/SvgVertLine";
-import NoteEllipses from "./NoteEllipses";
+import NoteEllipses, { getYPosition } from "./NoteEllipses";
 import NoteTails from "./NoteTails";
 
 class NoteSVGComponent extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
-    this.state = { minLineY: 0, maxLineY: 0 };
+
+    let { minLineY, maxLineY } = this.getMinMaxYPosition(props.accord);
+    this.state = { minLineY, maxLineY };
   }
-  totalWidth = 24;
+  totalWidth = 27;
   totalHeight = 200;
+
+  componentWillReceiveProps(nextProps) {
+    let { minLineY, maxLineY } = this.getMinMaxYPosition(nextProps.accord);
+    if (minLineY !== this.state.minLineY || maxLineY !== this.state.maxLineY) {
+      this.setState({ minLineY, maxLineY });
+    }
+  }
   render() {
     let lineX = 9;
     let minlineHeight = 32;
@@ -20,6 +29,7 @@ class NoteSVGComponent extends React.Component {
           width: this.totalWidth,
           height: this.totalHeight,
           marginTop: "-75px",
+          marginLeft: "5px",
         }}
       >
         <svg viewBox={`0 0 ${this.totalWidth} ${this.totalHeight}`}>
@@ -27,14 +37,6 @@ class NoteSVGComponent extends React.Component {
             lineX={lineX}
             duration={this.props.duration}
             accord={this.props.accord}
-            setMinMaxY={(min, max) => {
-              if (min !== this.state.minLineY || max !== this.state.maxLineY) {
-                this.setState({
-                  minLineY: min,
-                  maxLineY: max,
-                });
-              }
-            }}
           />
           {this.props.duration !== 1 ? (
             <SvgLine
@@ -56,5 +58,20 @@ class NoteSVGComponent extends React.Component {
       </div>
     );
   }
+
+  getMinMaxYPosition = (accord) => {
+    let minLineY = null;
+    let maxLineY = null;
+    for (let a of accord) {
+      let pos = getYPosition(a.octava, a.tone);
+      if (minLineY === null || pos < minLineY) {
+        minLineY = pos;
+      }
+      if (maxLineY === null || pos > maxLineY) {
+        maxLineY = pos;
+      }
+    }
+    return { minLineY, maxLineY };
+  };
 }
 export default NoteSVGComponent;

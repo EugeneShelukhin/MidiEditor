@@ -1,25 +1,30 @@
+const widthX = 4.5;
+
 function SvgEllipseHalfNote(props) {
-  let { x, y } = props;
+  let { x, y, isRight } = props;
+  if (isRight) {
+    x = x + widthX * 2;
+  }
   return (
     <>
       <ellipse
         cx={x}
         cy={y}
-        rx="4.5"
+        rx={widthX}
         ry="5.7"
         fill="none"
         stroke="black"
-        stroke-width="1.5"
+        strokeWidth="1.5"
         transform={`rotate(45,${x},${y})`}
       />
       <ellipse
         cx={x}
         cy={y}
-        rx="3"
+        rx={widthX - 0.25 * widthX}
         ry="5.7"
         fill="none"
         stroke="black"
-        stroke-width="1.5"
+        strokeWidth="1.5"
         transform={`rotate(45,${x},${y})`}
       />
     </>

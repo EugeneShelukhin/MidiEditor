@@ -9,14 +9,14 @@ function NoteEllipses(props) {
   let { lineX, duration, accord } = props;
   let leftEllipseX = lineX - 3;
 
-  props.setMinMaxY(...getMinMaxYPosition(props.accord)); //TODO on props changed!
-
-  return props.accord.map((a) => (
-    <>
+  return props.accord.map((n, i, arr) => (
+    <g key={i}>
       {duration === 1 ? (
         <SvgEllipseWholeNote
           x={leftEllipseX}
-          y={getYPosition(a.octava, a.tone)}
+          y={getYPosition(n.octava, n.tone)}
+          isRight={isRight(n, props.accord)}
+          key={i}
         />
       ) : (
         ""
@@ -24,38 +24,40 @@ function NoteEllipses(props) {
       {duration === 2 ? (
         <SvgEllipseHalfNote
           x={leftEllipseX}
-          y={getYPosition(a.octava, a.tone)}
+          y={getYPosition(n.octava, n.tone)}
+          isRight={isRight(n, props.accord)}
+          key={i}
         />
       ) : (
         ""
       )}
       {duration !== 1 && duration !== 2 ? (
-        <SvgEllipse x={leftEllipseX} y={getYPosition(a.octava, a.tone)} />
+        <SvgEllipse
+          x={leftEllipseX}
+          y={getYPosition(n.octava, n.tone)}
+          isRight={isRight(n, props.accord)}
+        />
       ) : (
         ""
       )}
-    </>
+    </g>
   ));
 }
 
-function getYPosition(octava, tone) {
-  let notePosition = parseInt(octava) * 7 + parseInt(tone) - 1;
-  let top = do0Position - toneHeight * notePosition;
-  return top;
+export function getYPosition(octava, tone) {
+  return do0Position - toneHeight * getAbsolutTone(octava, tone);
 }
 
-function getMinMaxYPosition(accord) {
-  let min = null;
-  let max = null;
-  for (let a of accord) {
-    let pos = getYPosition(a.octava, a.tone);
-    if (min === null || pos < min) {
-      min = pos;
-    }
-    if (max === null || pos > max) {
-      max = pos;
-    }
-  }
-  return [min, max];
+function getAbsolutTone(octava, tone) {
+  return parseInt(octava) * 7 + parseInt(tone) - 1;
 }
+
+function isRight(note, array) {
+  if (array.length < 2) {
+    return false;
+  }
+  let current = getAbsolutTone(note.octava, note.tone);
+  return array.some((x) => current === getAbsolutTone(x.octava, x.tone) + 1);
+}
+
 export default NoteEllipses;
