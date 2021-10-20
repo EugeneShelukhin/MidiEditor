@@ -1,4 +1,8 @@
 function EighthNote(props) {
-  return <>{"\uD834\uDD60"}</>;
+  return (
+    <span style={{ fontSize: "51px", marginTop: "2.3px" }}>
+      {"\uD834\uDD60"}
+    </span>
+  );
 }
 export default EighthNote;

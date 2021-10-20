@@ -1,29 +1,28 @@
 import React from "react";
 import SvgLine from "./SvgHelpers/SvgVertLine";
-import EighthTail from "./SvgHelpers/EighthTail";
 import NoteEllipses from "./NoteEllipses";
-//import SixteenthTail from "./SvgHelpers/SixteenthTail";
+import NoteTails from "./NoteTails";
+
 class NoteSVGComponent extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
     this.state = { minLineY: 0, maxLineY: 0 };
   }
-
+  totalWidth = 24;
+  totalHeight = 200;
   render() {
-    let totalWidth = 24;
-    let totalHeight = 200;
-
     let lineX = 9;
+    let minlineHeight = 32;
     return (
       <div
         style={{
-          width: totalWidth,
-          height: totalHeight,
+          width: this.totalWidth,
+          height: this.totalHeight,
           marginTop: "-75px",
         }}
       >
-        <svg viewBox={`0 0 ${totalWidth} ${totalHeight}`}>
+        <svg viewBox={`0 0 ${this.totalWidth} ${this.totalHeight}`}>
           <NoteEllipses
             lineX={lineX}
             duration={this.props.duration}
@@ -37,13 +36,22 @@ class NoteSVGComponent extends React.Component {
               }
             }}
           />
-          <SvgLine
-            x1={lineX}
-            y1={this.state.minLineY - 40}
-            y2={this.state.maxLineY}
-            width={2.5}
+          {this.props.duration !== 1 ? (
+            <SvgLine
+              x1={lineX}
+              y1={this.state.minLineY - minlineHeight}
+              y2={this.state.maxLineY}
+              width={2.5}
+            />
+          ) : (
+            ""
+          )}
+
+          <NoteTails
+            duration={this.props.duration}
+            x={lineX + 2}
+            y={this.state.minLineY - minlineHeight}
           />
-          <EighthTail x={lineX + 2} y={this.state.minLineY - 40} />
         </svg>
       </div>
     );

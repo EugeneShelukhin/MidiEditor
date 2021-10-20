@@ -22,10 +22,10 @@ function Bar(props) {
         ))}
 
       <WholeNote />
-      <HalfNote />
       <EighthNote />
       <SixteenthNote />
       <QuarterNote />
+      <HalfNote />
     </div>
   );
 }

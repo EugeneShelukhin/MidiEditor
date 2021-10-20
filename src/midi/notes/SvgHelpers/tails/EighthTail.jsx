@@ -1,4 +1,4 @@
-function SixteenthTail(props) {
+function EighthTail(props) {
   let { x, y } = props;
   return (
     <path
@@ -14,4 +14,4 @@ function SixteenthTail(props) {
   );
 }
 
-export default SixteenthTail;
+export default EighthTail;

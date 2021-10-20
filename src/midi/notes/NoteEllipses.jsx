@@ -1,4 +1,6 @@
-import SvgEllipse from "./SvgHelpers/SvgEllipse";
+import SvgEllipse from "./SvgHelpers/ellipseTypes/SvgEllipse";
+import SvgEllipseWholeNote from "./SvgHelpers/ellipseTypes/SvgEllipseWholeNote";
+import SvgEllipseHalfNote from "./SvgHelpers/ellipseTypes/SvgEllipseHalfNote";
 
 const toneHeight = 6;
 const do0Position = 146;
@@ -7,10 +9,32 @@ function NoteEllipses(props) {
   let { lineX, duration, accord } = props;
   let leftEllipseX = lineX - 3;
 
-  props.setMinMaxY(...getMinMaxYPosition(props.accord));
+  props.setMinMaxY(...getMinMaxYPosition(props.accord)); //TODO on props changed!
 
   return props.accord.map((a) => (
-    <SvgEllipse x={leftEllipseX} y={getYPosition(a.octava, a.tone)} />
+    <>
+      {duration === 1 ? (
+        <SvgEllipseWholeNote
+          x={leftEllipseX}
+          y={getYPosition(a.octava, a.tone)}
+        />
+      ) : (
+        ""
+      )}
+      {duration === 2 ? (
+        <SvgEllipseHalfNote
+          x={leftEllipseX}
+          y={getYPosition(a.octava, a.tone)}
+        />
+      ) : (
+        ""
+      )}
+      {duration !== 1 && duration !== 2 ? (
+        <SvgEllipse x={leftEllipseX} y={getYPosition(a.octava, a.tone)} />
+      ) : (
+        ""
+      )}
+    </>
   ));
 }
 
