@@ -35,6 +35,14 @@ function GetData() {
     { duration: 16, accord: [{ octava: 2, tone: 1 }] },
 
     {
+      duration: 1,
+      accord: [
+        { octava: 0, tone: 7 },
+        { octava: 0, tone: 5 },
+        { octava: 0, tone: 4 },
+      ],
+    },
+    {
       duration: 2,
       accord: [
         { octava: -1, tone: 1 },
@@ -50,9 +58,16 @@ function GetData() {
         { octava: 0, tone: 4 },
       ],
     },
-
     {
-      duration: 1,
+      duration: 8,
+      accord: [
+        { octava: 0, tone: 7 },
+        { octava: 0, tone: 5 },
+        { octava: 0, tone: 4 },
+      ],
+    },
+    {
+      duration: 16,
       accord: [
         { octava: 0, tone: 7 },
         { octava: 0, tone: 5 },
