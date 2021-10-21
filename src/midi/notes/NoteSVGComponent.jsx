@@ -1,27 +1,28 @@
 import React from "react";
-import SvgLine from "./SvgHelpers/SvgVertLine";
-import NoteEllipses, { getYPosition } from "./NoteEllipses";
+import SvgVertLine from "./SvgHelpers/SvgVertLine";
+import NoteEllipses from "./NoteEllipses";
+import { getMinMaxYPosition, vertLinePositionX } from "./notePositionHelper";
 import NoteTails from "./NoteTails";
+import ExtraStaffLines from "./ExtraStaffLines";
 
 class NoteSVGComponent extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
 
-    let { minLineY, maxLineY } = this.getMinMaxYPosition(props.accord);
+    let { minLineY, maxLineY } = getMinMaxYPosition(props.accord);
     this.state = { minLineY, maxLineY };
   }
-  totalWidth = 27;
+  totalWidth = 37;
   totalHeight = 200;
 
   componentWillReceiveProps(nextProps) {
-    let { minLineY, maxLineY } = this.getMinMaxYPosition(nextProps.accord);
+    let { minLineY, maxLineY } = getMinMaxYPosition(nextProps.accord);
     if (minLineY !== this.state.minLineY || maxLineY !== this.state.maxLineY) {
       this.setState({ minLineY, maxLineY });
     }
   }
   render() {
-    let lineX = 9;
     let minlineHeight = 32;
     return (
       <div
@@ -29,49 +30,35 @@ class NoteSVGComponent extends React.Component {
           width: this.totalWidth,
           height: this.totalHeight,
           marginTop: "-75px",
-          marginLeft: "5px",
         }}
       >
         <svg viewBox={`0 0 ${this.totalWidth} ${this.totalHeight}`}>
           <NoteEllipses
-            lineX={lineX}
+            lineX={vertLinePositionX}
             duration={this.props.duration}
             accord={this.props.accord}
           />
-          {this.props.duration !== 1 ? (
-            <SvgLine
-              x1={lineX}
-              y1={this.state.minLineY - minlineHeight}
-              y2={this.state.maxLineY}
-              width={2.5}
-            />
-          ) : (
-            ""
-          )}
 
+          <SvgVertLine
+            x1={vertLinePositionX}
+            y1={this.state.minLineY - minlineHeight}
+            y2={this.state.maxLineY}
+            duration={this.props.duration}
+            width={2.5}
+          />
           <NoteTails
             duration={this.props.duration}
-            x={lineX + 2}
+            x={vertLinePositionX + 2}
             y={this.state.minLineY - minlineHeight}
+          />
+          <ExtraStaffLines
+            min={this.state.minLineY}
+            max={this.state.maxLineY}
+            x={vertLinePositionX}
           />
         </svg>
       </div>
     );
   }
-
-  getMinMaxYPosition = (accord) => {
-    let minLineY = null;
-    let maxLineY = null;
-    for (let a of accord) {
-      let pos = getYPosition(a.octava, a.tone);
-      if (minLineY === null || pos < minLineY) {
-        minLineY = pos;
-      }
-      if (maxLineY === null || pos > maxLineY) {
-        maxLineY = pos;
-      }
-    }
-    return { minLineY, maxLineY };
-  };
 }
 export default NoteSVGComponent;
