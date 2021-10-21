@@ -19,7 +19,7 @@ function NoteEllipses(props) {
       ) : (
         ""
       )}
-      {duration === 2 ? (
+      {duration === 0.5 ? (
         <SvgEllipseHalfNote
           x={leftEllipseX}
           y={getYPosition(n.octava, n.tone)}
@@ -29,7 +29,7 @@ function NoteEllipses(props) {
       ) : (
         ""
       )}
-      {duration !== 1 && duration !== 2 ? (
+      {duration !== 1 && duration !== 0.5 ? (
         <SvgEllipse
           x={leftEllipseX}
           y={getYPosition(n.octava, n.tone)}

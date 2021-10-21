@@ -25,7 +25,7 @@ function ExtraStaffLines(props) {
     return (
       <g>
         {lines.map((y) => (
-          <SvgHorizontLine x={x} y={y} width={20} thickness={2} key={y} />
+          <SvgHorizontLine x={x} y={y} width={20} thickness={1} key={y} />
         ))}
       </g>
     );

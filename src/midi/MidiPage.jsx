@@ -1,15 +1,15 @@
 import "./MidiPage.scss";
-import Line from "./MidiLine";
 import data from "./data";
-
+import Bars from "./bar/Bars";
+import Title from "./Title";
 function MidiPage() {
   return (
     <div>
-      <Line data={data()} />
-      <Line />
-      <Line />
-      <Line />
-      <Line />
+      <Title />
+      <div>
+        <Bars data={data()} />
+      </div>
+      <div>pageNo</div>
     </div>
   );
 }
