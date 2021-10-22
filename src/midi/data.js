@@ -34,6 +34,15 @@ function GetData() {
     { duration: 0.125, accord: [{ octava: 1, tone: 6 }] },
     { duration: 0.125, accord: [{ octava: 1, tone: 7 }] },
 
+    {
+      barInfo: {
+        clef: "bass",
+        timeSignature: { beatCount: 4, beatDuration: 0.25 },
+        sharps: [4, 1],
+        flats: [],
+      },
+    },
+
     { duration: 0.0625, accord: [{ octava: 2, tone: 7 }] },
     { duration: 0.0625, accord: [{ octava: 2, tone: 6 }] },
     { duration: 0.0625, accord: [{ octava: 2, tone: 5 }] },

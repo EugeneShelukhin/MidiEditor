@@ -6,7 +6,12 @@ function Bars(props) {
   return (
     <div className="bars">
       {barsData.map((d, i) => (
-        <Bar data={d.data} barInfo={d.barInfo} key={i} />
+        <Bar
+          data={d.data}
+          barInfo={d.barInfo}
+          isBarinfoChanged={d.isBarinfoChanged}
+          key={i}
+        />
       ))}
     </div>
   );
@@ -16,39 +21,51 @@ function divideDataForBars(data) {
   let barsData = [];
 
   let currentDuration = 0;
+  let barDuration = 1;
   let current = [];
 
-  //default bar info
-  let currentBarInfo = {
+  let isBarinfoChanged = true;
+  let _currentBarInfo = {
     clef: "treble",
     timeSignature: { beatCount: 4, beatDuration: 0.25 },
     sharps: [],
     flats: [],
   };
+  const setCurrentBarInfo = (barInfo) => {
+    _currentBarInfo = barInfo;
+    isBarinfoChanged = true;
+    barDuration =
+      _currentBarInfo.timeSignature.beatCount *
+      _currentBarInfo.timeSignature.beatDuration;
+  };
 
-  let barDuration =
-    currentBarInfo.timeSignature.beatCount *
-    currentBarInfo.timeSignature.beatDuration;
   for (let d of data) {
     if (d.barInfo) {
-      currentBarInfo = d.barInfo;
-      barDuration =
-        currentBarInfo.timeSignature.beatCount *
-        currentBarInfo.timeSignature.beatDuration;
+      setCurrentBarInfo(d.barInfo);
       continue;
     }
     if (currentDuration + d.duration > barDuration) {
-      barsData.push({ barInfo: currentBarInfo, data: current.slice() });
+      barsData.push({
+        barInfo: _currentBarInfo,
+        data: current.slice(),
+        isBarinfoChanged,
+      });
       current = [];
       currentDuration = 0;
+      isBarinfoChanged = false;
     }
     current.push(d);
     currentDuration += d.duration;
   }
   if (current.length > 0) {
-    barsData.push({ barInfo: currentBarInfo, data: current.slice() });
+    barsData.push({
+      barInfo: _currentBarInfo,
+      data: current.slice(),
+      isBarinfoChanged,
+    });
     current = [];
     currentDuration = 0;
+    isBarinfoChanged = false;
   }
   return barsData;
 }

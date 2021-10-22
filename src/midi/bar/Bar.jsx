@@ -10,9 +10,15 @@ function Bar(props) {
     <div className="bar">
       <div className="vertical-line"></div>
       <Staff />
-      <Clef type={props.clef} />
-      <TimeSignature timeSignature={props.barInfo.timeSignature} />
-      <SharpFlatPanel />
+      {props.isBarinfoChanged ? (
+        <>
+          <Clef type={props.barInfo.clef} />
+          <TimeSignature timeSignature={props.barInfo.timeSignature} />
+          <SharpFlatPanel />
+        </>
+      ) : (
+        ""
+      )}
       {props.data &&
         props.data.map((n, i) => (
           <NoteSVGComponent duration={n.duration} accord={n.accord} key={i} />
