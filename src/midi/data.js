@@ -1,5 +1,13 @@
 function GetData() {
   return [
+    {
+      barInfo: {
+        clef: "treble",
+        timeSignature: { beatCount: 4, beatDuration: 0.25 },
+        sharps: [4, 1],
+        flats: [],
+      },
+    },
     { duration: 1, accord: [{ octava: 0, tone: 1 }] },
     { duration: 1, accord: [{ octava: 0, tone: 2 }] },
     { duration: 1, accord: [{ octava: 0, tone: 3 }] },
@@ -33,7 +41,6 @@ function GetData() {
     { duration: 0.0625, accord: [{ octava: 2, tone: 3 }] },
     { duration: 0.0625, accord: [{ octava: 2, tone: 2 }] },
     { duration: 0.0625, accord: [{ octava: 2, tone: 1 }] },
-    { duration: 0.25, accord: [{ octava: 0, tone: 1 }] },
     {
       duration: 1,
       accord: [

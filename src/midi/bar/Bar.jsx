@@ -11,7 +11,7 @@ function Bar(props) {
       <div className="vertical-line"></div>
       <Staff />
       <Clef type={props.clef} />
-      <TimeSignature beatCount="2" beatLength="4" />
+      <TimeSignature timeSignature={props.barInfo.timeSignature} />
       <SharpFlatPanel />
       {props.data &&
         props.data.map((n, i) => (
