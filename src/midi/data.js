@@ -1,3 +1,13 @@
+import parser from "../midiParser/parser";
+
+export function test() {
+  let base64Midi =
+    "TVRoZAAAAAYAAQACAYBNVHJrAAAAEwD/WAQEAhgIAP9RAwhSrgD/LwBNVHJrAAAAWQD/Aw5FbGVjdHJpYyBQaWFubwDAAACQPDJggDwAAJA+MmCAPgAAkEAyYIBAAACQQTJggEEAAJBDMmCAQwAAkEUyYIBFAACQRzJggEcAAJBIMmCASAAA/y8A";
+  let midiArray = Buffer.from(base64Midi, "base64");
+
+  return parser(midiArray);
+}
+
 function GetData() {
   return [
     {
