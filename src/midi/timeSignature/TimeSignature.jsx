@@ -2,7 +2,7 @@ import "./TimeSignature.scss";
 function TimeSignature(props) {
   let { beatCount, beatDuration } = props.timeSignature;
   beatDuration = Math.round(1 / beatDuration);
-  //console.log();
+
   return (
     <div className="time-signature">
       <div>{beatCount}</div>

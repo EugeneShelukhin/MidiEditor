@@ -5,12 +5,8 @@ function parse(binMidi) {
   }
   division = getDivision(binMidi);
   let tracks = divideOnTracks(binMidi);
-  console.log("tracks", tracks);
   let events = tracks.map((x) => getEventsArray(x));
-  console.log("events ", events);
   let notes = events.map((x) => getNotesArray(x)).filter((x) => x.length > 0);
-  console.log("notes ", notes);
-
   return notes;
 }
 

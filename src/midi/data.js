@@ -2,13 +2,49 @@ import parser from "../midiParser/parser";
 
 export function test() {
   let base64Midi =
-    "TVRoZAAAAAYAAQACAYBNVHJrAAAAEwD/WAQEAhgIAP9RAwhSrgD/LwBNVHJrAAAAWQD/Aw5FbGVjdHJpYyBQaWFubwDAAACQPDJggDwAAJA+MmCAPgAAkEAyYIBAAACQQTJggEEAAJBDMmCAQwAAkEUyYIBFAACQRzJggEcAAJBIMmCASAAA/y8A";
+    "TVRoZAAAAAYAAQADAYBNVHJrAAAAEwD/WAQEAhgIAP9RAwhSrgD/LwBNVHJrAAAAYwD/AxhFbGVjdHJpYyBQaWFubyAoQ2xhc3NpYykAwAAAkDwyYIA8AACQPjJggD4AAJBAMmCAQAAAkEEyYIBBAACQQzJggEMAAJBFMmCARQAAkEcyYIBHAACQSDJggEgAAP8vAE1UcmsAAACSAP8DDkVsZWN0cmljIFBpYW5vAMEAhgCRSjJggUoAAJFMMmCBTAAAkU0yYIFNAACRTzJggU8AAJFRMmCBUQAAkVMyYIFTAACRVDJggVQAAJFWMmCBVgAAkTsyYIE7AACROTJggTkAAJE3MmCBNwAAkTUyYIE1AACRNDJggTQAAJEyMmCBMgAAkTAyYIEwAAD/LwA=";
   let midiArray = Buffer.from(base64Midi, "base64");
 
   return parser(midiArray);
 }
 
 function GetData() {
+  let notes = test()[0]; //TODO
+  let data = notes.map((x) => ({
+    duration: x.delta,
+    accord: [
+      {
+        octava: Math.floor(x.note / 12),
+        tone: getNoteValue(x.note),
+        sign: getSign(x.note),
+      },
+    ],
+  }));
+  console.log("data", data);
+  return data;
+}
+
+function getNoteValue(note) {
+  let val = note % 12;
+  if (val <= 5) {
+    return Math.ceil(val / 2) + 1;
+  } else {
+    return Math.ceil((val - 5) / 2) + 4;
+  }
+}
+
+function getSign(note) {
+  if (isSharp(note)) {
+    return "sharp";
+  }
+  return null;
+}
+function isSharp(note) {
+  let sharps = [2, 4, 7, 9, 11];
+  return sharps.indexOf(note % 12) !== -1;
+}
+
+function GetDataDemo() {
   return [
     {
       barInfo: {

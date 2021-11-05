@@ -1,14 +1,15 @@
 export const vertLinePositionX = 12;
 export const toneHeight = 6;
-export const do0Position = 146;
-export const la1Position = 75;
+export const lowExtraLineMargin = 146;
+export const highExtraLineMargin = 75;
+const d0Margin = 356;
 
 export function getAbsolutTone(octava, tone) {
   return parseInt(octava) * 7 + parseInt(tone) - 1;
 }
 
 export function getYPosition(octava, tone) {
-  return do0Position - toneHeight * getAbsolutTone(octava, tone);
+  return d0Margin - toneHeight * getAbsolutTone(octava, tone);
 }
 
 export function getMinMaxYPosition(accord) {

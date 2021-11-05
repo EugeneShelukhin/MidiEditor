@@ -1,4 +1,8 @@
-import { toneHeight, do0Position, la1Position } from "./notePositionHelper";
+import {
+  toneHeight,
+  lowExtraLineMargin,
+  highExtraLineMargin,
+} from "./notePositionHelper";
 import SvgHorizontLine from "./SvgHelpers/SvgHorizontLine";
 
 function ExtraStaffLines(props) {
@@ -6,16 +10,16 @@ function ExtraStaffLines(props) {
   x = x - 1;
   let lineHeight = toneHeight * 2;
   let lines = [];
-  if (min <= la1Position) {
-    let current = la1Position;
+  if (min <= highExtraLineMargin) {
+    let current = highExtraLineMargin;
     while (current >= min) {
       lines.push(current);
       current -= lineHeight;
     }
   }
 
-  if (max >= do0Position) {
-    let current = do0Position;
+  if (max >= lowExtraLineMargin) {
+    let current = lowExtraLineMargin;
     while (current <= max) {
       lines.push(current);
       current += lineHeight;
